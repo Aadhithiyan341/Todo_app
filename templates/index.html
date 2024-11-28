@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>My To-Do List</h1>
+
+    <!-- Form to add a new task -->
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="Enter new task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {% for todo in todo_list %}
+        <li>
+            <span style="text-decoration: {% if todo.complete %}line-through{% endif %};">
+                {{ todo.title }}
+            </span>
+            <a href="/update/{{ todo.id }}">
+                {% if todo.complete %}Undo{% else %}Complete{% endif %}
+            </a>
+            <a href="/delete/{{ todo.id }}" class="delete">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
